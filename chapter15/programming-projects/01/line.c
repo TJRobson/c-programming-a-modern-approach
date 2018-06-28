@@ -5,10 +5,13 @@
 #include "line.h"
 
 #define MAX_LINE_LEN 60
+#define EXTRA_SPACE_ON_LEFT true
+#define EXTRA_SPACE_ON_RIGHT false
 
 char line[MAX_LINE_LEN + 1];
 int line_len = 0;
 int num_words = 0;
+bool left_or_right = EXTRA_SPACE_ON_RIGHT;
 
 void clear_line(void)
 {
@@ -38,12 +41,17 @@ void write_line(void)
 {
   int extra_spaces, spaces_to_insert, i, j;
 
+  left_or_right = !left_or_right;
   extra_spaces = MAX_LINE_LEN - line_len;
+
   for (i = 0; i < line_len; i++) {
     if (line[i] != ' ') {
       putchar(line[i]);
     } else {
       spaces_to_insert = extra_spaces / (num_words - 1);
+      if (left_or_right == EXTRA_SPACE_ON_LEFT && extra_spaces > 0) {
+        spaces_to_insert++;
+      }
       for (j = 1; j <= spaces_to_insert + 1; j++) {
         putchar(' ');
       }
