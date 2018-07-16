@@ -1,5 +1,6 @@
 /* Chapter 16 Exercise 5 */
 #include <stdio.h>
+#include <stdbool.h>
 
 struct date {
   int month;
@@ -8,7 +9,7 @@ struct date {
 };
 
 int day_of_year(struct date d);
-
+bool leap_year(int year);
 int compare_dates(struct date d1, struct date d2);
 
 int main(void)
@@ -27,6 +28,16 @@ int main(void)
   return 0;
 }
 
+bool leap_year(int year)
+{
+  if(year % 4 == 0 && year % 100 != 0) {
+    return true;
+  } else if (year % 400 == 0) {
+    return true;
+  }
+  return false;
+}
+
 int day_of_year(struct date d)
 {
                 /* Jan Feb Mar Apr May Jun */
@@ -35,10 +46,7 @@ int day_of_year(struct date d)
                     31, 31, 30, 31, 30, 30};
   int i, day = d.day;
 
-  /* Tests if year is leap year */
-  if(d.year % 4 == 0 && d.year % 100 != 0) {
-    months[1]++;
-  } else if (d.year % 400 == 0) {
+  if (leap_year(d.year)) {
     months[1]++;
   }
 
