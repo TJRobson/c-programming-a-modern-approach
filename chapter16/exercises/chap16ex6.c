@@ -16,6 +16,11 @@ int main(void)
   printf("\nEnter a number of seconds since midnight: ");
   scanf("%ld", &total_secs);
 
+  while (total_secs <=1 || total_secs >= 86400) {
+    printf("Error, must enter a number (seconds) between 0 and 86400: ");
+    scanf("%ld", &total_secs);
+  }
+
   struct time t = split_time(total_secs);
 
   printf("Hours: %d | Minutes: %d | Seconds: %d\n",
