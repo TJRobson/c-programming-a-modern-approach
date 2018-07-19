@@ -16,6 +16,30 @@ struct fraction divd_fractions(struct fraction f1, struct fraction f2);/* 7e */
 
 int main(void)
 {
+  struct fraction f1, f2;
+
+  printf("\nEnter 1st fraction (x/y): ");
+  scanf("%d/%d", &f1.numerator, &f1.demoninator);
+
+  printf("Enter 2nd fraction (x/y): ");
+  scanf("%d/%d", &f2.numerator, &f2.demoninator);
+
+  struct fraction addtion = add_fractions(f1, f2);
+  printf("\nfraction 1 + fraction 2: %d/%d\n",
+          addtion.numerator, addtion.demoninator);
+
+  struct fraction subtraction = sub_fractions(f1, f2);
+  printf("fraction 1 - fraction 2: %d/%d\n",
+          subtraction.numerator, subtraction.demoninator);
+
+  struct fraction multiplication = mult_fractions(f1, f2);
+  printf("fraction 1 * fraction 2: %d/%d\n",
+          multiplication.numerator, multiplication.demoninator);
+
+  struct fraction division = divd_fractions(f1, f2);
+  printf("fraction 1 / fraction 2: %d/%d\n\n",
+          division.numerator, division.demoninator);
+
   return 0;
 }
 
@@ -76,11 +100,11 @@ struct fraction mult_fractions(struct fraction f1, struct fraction f2)
 
 struct fraction divd_fractions(struct fraction f1, struct fraction f2)
 {
-  struct fraction dividend;
+  struct fraction quotient;
 
-  dividend.numerator = f1.numerator * f2.demoninator;
-  dividend.demoninator = f1.demoninator * f2.numerator;
+  quotient.numerator = f1.numerator * f2.demoninator;
+  quotient.demoninator = f1.demoninator * f2.numerator;
 
-  dividend = reduce(dividend);
-  return dividend;
+  quotient = reduce(quotient);
+  return quotient;
 }
