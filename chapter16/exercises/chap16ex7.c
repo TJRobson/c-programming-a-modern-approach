@@ -76,5 +76,11 @@ struct fraction mult_fractions(struct fraction f1, struct fraction f2)
 
 struct fraction divd_fractions(struct fraction f1, struct fraction f2)
 {
+  struct fraction dividend;
 
+  dividend.numerator = f1.numerator * f2.demoninator;
+  dividend.demoninator = f1.demoninator * f2.numerator;
+
+  dividend = reduce(dividend);
+  return dividend;
 }
