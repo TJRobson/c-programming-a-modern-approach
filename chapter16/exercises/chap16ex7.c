@@ -7,7 +7,7 @@ struct fraction {
 };
 
 struct fraction reduce(struct fraction f);
-int fraction gcd(int one, int two); /* 7a */
+int get_gcd(int one, int two); /* 7a */
 
 struct fraction add_fractions(struct fraction f1, struct fraction f2); /* 7b */
 struct fraction sub_fractions(struct fraction f1, struct fraction f2); /* 7c */
@@ -21,13 +21,13 @@ int main(void)
 
 struct fraction reduce(struct fraction f)
 {
-  int gcd = gcd(f.numerator, f.demoninator);
+  int gcd = get_gcd(f.numerator, f.demoninator);
   f.numerator /= gcd;
   f.demoninator /= gcd;
   return f;
 }
 
-struct fraction gcd(int one, int two)
+int get_gcd(int one, int two)
 {
   int temp;
 
@@ -41,9 +41,15 @@ struct fraction gcd(int one, int two)
 
 struct fraction add_fractions(struct fraction f1, struct fraction f2)
 {
+  struct fraction sum;
+  sum.numerator = (f1.numerator * f2.demoninator) +
+                  (f2.numerator * f1.demoninator);
+  sum.demoninator = f1.demoninator * f2.demoninator;
 
-
+  sum = reduce(sum);
+  return sum;
 }
+
 struct fraction sub_fractions(struct fraction f1, struct fraction f2)
 {
 
