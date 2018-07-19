@@ -42,6 +42,7 @@ int get_gcd(int one, int two)
 struct fraction add_fractions(struct fraction f1, struct fraction f2)
 {
   struct fraction sum;
+
   sum.numerator = (f1.numerator * f2.demoninator) +
                   (f2.numerator * f1.demoninator);
   sum.demoninator = f1.demoninator * f2.demoninator;
@@ -52,8 +53,16 @@ struct fraction add_fractions(struct fraction f1, struct fraction f2)
 
 struct fraction sub_fractions(struct fraction f1, struct fraction f2)
 {
+  struct fraction sum;
 
+  sum.numerator = (f1.numerator * f2.demoninator) -
+                  (f2.numerator * f1.demoninator);
+  sum.demoninator = f1.demoninator * f2.demoninator;
+
+  sum = reduce(sum);
+  return sum;
 }
+
 struct fraction mult_fractions(struct fraction f1, struct fraction f2)
 {
 
