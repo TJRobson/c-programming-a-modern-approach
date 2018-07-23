@@ -83,5 +83,35 @@ struct colour brightner(struct colour c)
 
 struct colour darkner(struct colour c)
 {
+  if (c.red == 0 && c.green == 0 && c.blue == 0) {
+    struct colour darker = {3, 3, 3};
+    return darker;
+  }
 
+  struct colour darker;
+
+  if (c.red > 0 && c.red < 3) {
+    c.red = 3;
+  }
+  if (c.green > 0 && c.green < 3) {
+    c.green = 3;
+  }
+  if (c.blue > 0 && c.blue < 3) {
+    c.blue = 3;
+  }
+
+  darker.red = (int) (c.red / 0.7);
+  if (darker.red > 255) {
+    darker.red = 255;
+  }
+  darker.green = (int) (c.green / 0.7);
+  if (darker.green > 255) {
+    darker.green = 255;
+  }
+  darker.blue = (int) (c.blue / 0.7);
+  if (darker.blue > 255) {
+    darker.blue = 255;
+  }
+
+  return darker;
 }
