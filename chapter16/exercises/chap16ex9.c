@@ -10,7 +10,7 @@ struct colour {
 
 struct colour make_colour(int red, int green, int blue);
 int getRed(struct colour c);
-bool equal_colour(struct colour colour1, struct colour colour2);
+bool equal_colour(struct colour c1, struct colour c2);
 struct colour brightner(struct colour c);
 struct colour darkner(struct colour c);
 
@@ -37,12 +37,12 @@ struct colour make_colour(int red, int green, int blue)
 
 int getRed(struct colour c)
 {
-
+  return c.red;
 }
 
-bool equal_colour(struct colour colour1, struct colour colour2)
+bool equal_colour(struct colour c1, struct colour c2)
 {
-
+  return ( c1.red == c2.red && c1.green == c2.green && c1.blue == c2.blue );
 }
 
 struct colour brightner(struct colour c)
