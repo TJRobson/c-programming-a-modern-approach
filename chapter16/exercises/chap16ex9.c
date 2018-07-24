@@ -16,6 +16,29 @@ struct colour darkner(struct colour c);
 
 int main(void)
 {
+  int red_one, green_one, blue_one, red_two, green_two, blue_two;
+
+  printf("\nColour one. Enter an int value for each RGB, (R G B): ");
+  scanf("%d %d %d", &red_one, &green_one, &blue_one);
+  printf("Colour two. Enter an int value for each RGB, (R G B): ");
+  scanf("%d %d %d", &red_two, &green_two, &blue_two);
+
+  struct colour one = make_colour(red_one, green_one, blue_one);
+  struct colour two = make_colour(red_two, green_two, blue_two);
+
+  printf("\nColour One == Colour Two: %s\n",
+          equal_colour(one, two) ? "True" : "False");
+
+  struct colour bright_one = brightner(one);
+  struct colour darker_two = darkner(two);
+
+  printf("\nBrightened Colour One:\nR: %d G: %d B: %d\n",
+          bright_one.red, bright_one.green, bright_one.blue);
+
+  printf("\nDarker Colour Two:\nR: %d G: %d B: %d\n",
+          darker_two.red, darker_two.green, darker_two.blue);
+
+
   return 0;
 }
 
@@ -100,15 +123,15 @@ struct colour darkner(struct colour c)
     c.blue = 3;
   }
 
-  darker.red = (int) (c.red / 0.7);
+  darker.red = (int) (c.red * 0.7);
   if (darker.red > 255) {
     darker.red = 255;
   }
-  darker.green = (int) (c.green / 0.7);
+  darker.green = (int) (c.green * 0.7);
   if (darker.green > 255) {
     darker.green = 255;
   }
-  darker.blue = (int) (c.blue / 0.7);
+  darker.blue = (int) (c.blue * 0.7);
   if (darker.blue > 255) {
     darker.blue = 255;
   }
