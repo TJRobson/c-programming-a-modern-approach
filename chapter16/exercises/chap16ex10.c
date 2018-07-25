@@ -33,3 +33,13 @@ int compute_area(struct rectangle r)
 {
   return compute_height(r) * compute_width(r);
 }
+
+struct point find_center(struct rectangle r)
+{
+  struct point center;
+  
+  center.x = r.lower_right.x + (compute_width(r) / 2);
+  center.y = r.lower_right.y + (compute_height(r) / 2);
+
+  return center;
+}
