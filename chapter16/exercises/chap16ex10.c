@@ -53,3 +53,9 @@ struct rectangle shift_rectangle(struct rectangle r, int x, int y)
 
   return r;
 }
+
+bool contains_point(struct rectangle r, struct point p)
+{
+  return ((p.x >= r.upper_left.x && p.x <= r.lower_right.x) &&
+          (p.y >= r.upper_left.y && p.y <= r.lower_right.y));
+}
