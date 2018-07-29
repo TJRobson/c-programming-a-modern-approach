@@ -23,10 +23,36 @@ struct shape {
 
 double compute_area(struct shape s);
 struct shape move_shape(struct shape s, int x, int y);
-struct shape scale_shape(struct shape s, double c);
+struct shape scale_shape(struct shape s, double c); /* c is scale factor */
 
 int main(void)
 {
+  s.shape_kind = CIRCLE;
+  s.u.circle.radius = 7;
+
+  printf("\nComputer area of circle, radius = %d: %.2lf\n",
+         s.u.circle.radius, compute_area(s));
+
+  s.shape_kind = RECTANGLE;
+  s.center.x = 9;
+  s.center.y = 9;
+  s.u.rectangle.height = 18;
+  s.u.rectangle.width = 18;
+
+  printf("Center of rectangle: %d, %d\n", s.center.x, s.center.y);
+  printf("Area of rectangle with height %d and width %d: %.2lf\n",
+          s.u.rectangle.height, s.u.rectangle.width, compute_area(s));
+
+  s = move_shape(s, 2, 8);
+
+  printf("Center of shifted rectangle: %d, %d\n",
+          s.center.x, s.center.y);
+
+  s.shape_kind = CIRCLE;
+  s.u.circle.radius = 7;
+  s = scale_shape(s, 0.8);
+  printf("Circle radius after being scaled by 0.8: %d\n",
+          s.u.circle.radius);
 
   return 0;
 }
