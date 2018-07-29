@@ -34,9 +34,13 @@ int main(void)
 double compute_area(struct shape s)
 {
   if (s.shape_kind == RECTANGLE) {
+
     return s.u.rectangle.height * s.u.rectangle.height;
+
   } else if (s.shape_kind == CIRCLE) {
+
     return M_PI * s.u.circle.radius * s.u.circle.radius;
+
   }
 }
 
@@ -44,5 +48,21 @@ struct shape move_shape(struct shape s, int x, int y)
 {
   s.center.x += x;
   s.center.y += y;
+
+  return s;
+}
+
+struct shape scale_shape(struct shape s, double c)
+{
+  if (s.shape_kind == RECTANGLE) {
+
+    s.u.rectangle.height *= c;
+    s.u.rectangle.width *= c;
+
+  } else if (s.shape_kind == CIRCLE) {
+
+    s.u.circle.radius *= c;
+
+  }
   return s;
 }
