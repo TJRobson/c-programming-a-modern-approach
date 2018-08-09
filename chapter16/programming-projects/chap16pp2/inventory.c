@@ -1,15 +1,11 @@
 /* Maintains a parts database (array version) */
 #include <stdio.h>
+#include "inventory.h"
 #include "readline.h"
+#include "quicksort.h"
 
 #define NAME_LEN 25
 #define MAX_PARTS 100
-
-struct {
-  int number;
-  char name[NAME_LEN+1]
-  int on_hand;
-} inventory[MAX_PARTS];
 
 int num_parts = 0; /* number of parts currently stored */
 
