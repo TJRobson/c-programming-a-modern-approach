@@ -4,9 +4,6 @@
 #include "readline.h"
 #include "quicksort.h"
 
-#define NAME_LEN 25
-#define MAX_PARTS 100
-
 int num_parts = 0; /* number of parts currently stored */
 
 int find_part(int number);
