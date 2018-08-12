@@ -4,16 +4,11 @@
 #include "readline.h"
 #include "quicksort.h"
 
-#define NAME_LEN 25
-#define MAX_PARTS 100
-
-int num_parts = 0; /* number of parts currently stored */
-
-int find_part(int number);
-void insert(void);
-void search(void);
-void update(void);
-void print(void);
+int find_part(const struct part *inventory, int num_parts, int number);
+void insert(struct part *inventory, int *num_parts);
+void search(const struct part *inventory, int num_parts);
+void update(struct part *inventory, int num_parts);
+void print(const struct part *inventory, int num_parts);
 
 /**********************************************************
  * main: Prompts the user to enter an operation code,     *
@@ -25,16 +20,19 @@ void print(void);
  int main(void)
 {
   char code;
+  struct part inventory[MAX_PARTS];
+  int num_parts = 0;
+
 
   for (;;) {
     printf("Enter operation code: ");
     scanf(" %c", &code);
     while (getchar() != '\n') ; /* skips to end of line */
     switch (code) {
-      case 'i': insert(); break;
-      case 's': search(); break;
-      case 'u': update(); break;
-      case 'p': print();  break;
+      case 'i': insert(inventory, &num_parts); break;
+      case 's': search(inventory, num_parts); break;
+      case 'u': update(inventory, num_parts); break;
+      case 'p': print(inventory, num_parts);  break;
       case 'q': return 0;
       default:  printf("Illegal code\n");
     }
@@ -47,7 +45,7 @@ void print(void);
  *            array. Returns the array index if the part  *
  *            number is found; otherwise, returns -1.     *
  **********************************************************/
-int find_part(int number)
+int find_part(const struct part *inventory, int num_parts, int number)
 {
   int i;
 
@@ -66,28 +64,28 @@ int find_part(int number)
  *         prematurely if the part already exists or the  *
  *         database is full.                              *
  **********************************************************/
-void insert(void)
+void insert(struct part *inventory, int *num_parts)
 {
   int part_number;
 
-  if (num_parts == MAX_PARTS) {
+  if (*num_parts == MAX_PARTS) {
     printf("Database is full; can't add more parts.\n");
     return;
   }
 
   printf("Enter part number: ");
   scanf("%d", &part_number);
-  if (find_part(part_number) >= 0) {
+  if (find_part(inventory, *num_parts, part_number) >= 0) {
     printf("Part already exists.\n");
     return;
   }
 
-  inventory[num_parts].number = part_number;
+  inventory[*num_parts].number = part_number;
   printf("Enter part name: ");
-  read_line(inventory[num_parts].name, NAME_LEN);
+  read_line(inventory[*num_parts].name, NAME_LEN);
   printf("Enter quantity on hand: ");
-  scanf("%d", &inventory[num_parts].on_hand);
-  num_parts++;
+  scanf("%d", &inventory[*num_parts].on_hand);
+  (*num_parts)++;
 }
 
 /**********************************************************
@@ -96,13 +94,13 @@ void insert(void)
  *         exists, prints the name and quantity on hand;  *
  *         if not, prints an error message.               *
  **********************************************************/
-void search(void)
+void search(const struct part *inventory, int num_parts)
 {
   int i, number;
 
   printf("Enter part number: ");
   scanf("%d", &number);
-  i = find_part(number);
+  i = find_part(inventory, num_parts, number);
   if (i >= 0) {
     printf("Part name: %s\n", inventory[i].name);
     printf("Quantity on hand: %d\n", inventory[i].on_hand);
@@ -118,13 +116,13 @@ void search(void)
  *         change in quantity on hand and updates the     *
  *         database.                                      *
  **********************************************************/
-void update(void)
+void update(struct part *inventory, int num_parts)
 {
   int i, number, change;
 
   printf("Enter part number: ");
   scanf("%d", &number);
-  i = find_part(number);
+  i = find_part(inventory, num_parts, number);
   if (i >= 0) {
     printf("Enter change in quantity on hand: ");
     scanf("%d", &change);
@@ -140,7 +138,7 @@ void update(void)
  *        quantity on hand. Parts are printed in the      *
  *        sorted order via part number.                   *
  **********************************************************/
-void print(void)
+void print(const struct part *inventory, int num_parts)
 {
   int i;
 
