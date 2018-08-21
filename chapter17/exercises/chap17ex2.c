@@ -11,6 +11,7 @@ char *duplicate(char *str)
 
   if ((copy = malloc(strlen(str) + 1)) == NULL) {
     printf("\nError: malloc failed\n");
+    exit(EXIT_FAILURE);
   }
 
   strcpy(copy, str);
