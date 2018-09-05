@@ -56,7 +56,15 @@ bool push(int i)
 
 int pop(void)
 {
-  
+  if (is_empty()) {
+    printf("\nError: Stack Underflow.\n");
+    exit(EXIT_FAILURE);
+  }
 
+  struct node new_top = top->next;
+  int val = top->value;
+  free(top);
+  top = new_top;
 
+  return val;
 }
