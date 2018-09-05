@@ -31,5 +31,32 @@ void make_empty(void)
     free(top);
     top = next_node;
   }
+}
+
+int is_empty(void)
+{
+  return top == NULL;
+}
+
+bool push(int i)
+{
+  struct point next_node = malloc(struct point);
+
+  if (next_node == NULL) {
+    printf("\nError: malloc failed in 'push'\n");
+    return false;
+  }
+
+  next_node->value = i;
+  next_node->next = top;
+  top = next_node;
+
+  return true;
+}
+
+int pop(void)
+{
+  
+
 
 }
