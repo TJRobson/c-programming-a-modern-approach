@@ -6,7 +6,7 @@
 
 struct node {
   int value;
-  struct *node next;
+  struct node *next;
 };
 
 struct node *top = NULL;
@@ -19,6 +19,20 @@ int pop(void);
 
 int main(void)
 {
+  int i, user_input;
+
+  printf("\n");
+  for (i = 0; i <= 5; i++) {
+    printf("Enter an int to push onto stack: ");
+    scanf("%d", &user_input);
+    push(user_input);
+  }
+
+  printf("Popped top int: %d\n", pop());
+
+  make_empty();
+  printf("Is empty? %s\n", is_empty() ? "True":"False");
+
   return 0;
 }
 
@@ -40,7 +54,7 @@ int is_empty(void)
 
 bool push(int i)
 {
-  struct point next_node = malloc(struct point);
+  struct node *next_node = malloc(sizeof(struct node));
 
   if (next_node == NULL) {
     printf("\nError: malloc failed in 'push'\n");
@@ -61,7 +75,7 @@ int pop(void)
     exit(EXIT_FAILURE);
   }
 
-  struct node new_top = top->next;
+  struct node *new_top = top->next;
   int val = top->value;
   free(top);
   top = new_top;
