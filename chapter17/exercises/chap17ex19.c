@@ -1,8 +1,10 @@
 /* Chapter 17 Exercise 19 */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 #define NUM_CMDS (int) (sizeof(file_cmd) / sizeof(file_cmd[1]))
+#define N 25
 
 void new_cmd(void);
 void open_cmd(void);
@@ -16,7 +18,7 @@ void exit_cmd(void);
 
 void print_cmd_list(void);
 void get_cmd(char *cmd, int n);
-void parce_cmd(char *cmd);
+void parse_cmd(char *cmd);
 
 struct {
   char *cmd_name;
@@ -35,6 +37,15 @@ struct {
 
 int main(void)
 {
+  char cmd[N];
+
+  print_cmd_list();
+  get_cmd(cmd, N);
+
+  do {
+    parse_cmd(cmd);
+    get_cmd(cmd, N);
+  } while ((strcmp(cmd, "")) != 0);
 
 }
 
@@ -42,20 +53,20 @@ void print_cmd_list(void)
 {
   int i;
 
-  printf("\nList of commands:\n")
+  printf("\nList of commands:\n");
   for (i = 0; i < NUM_CMDS; i++) {
-    printf("\t%s\n", file_cmd[i].cmd_name);
+    printf("\t\t\t%s\n", file_cmd[i].cmd_name);
   }
 }
 
 void get_cmd(char *cmd, int n)
 {
-  printf("Enter a command: ");
+  printf("\n\tEnter a command: ");
   fgets(cmd, n, stdin);
   cmd[strlen(cmd)-1] = '\0'; /* Replace '\n' with null char */
 }
 
-void parce_cmd(char *cmd)
+void parse_cmd(char *cmd)
 {
   int i;
 
@@ -68,37 +79,42 @@ void parce_cmd(char *cmd)
 
 void new_cmd(void)
 {
-  printf("Inside 'new' function\n");
+  printf("\tInside 'new' function\n");
 }
 
 void open_cmd(void)
 {
-  printf("Inside 'close' function\n");
+  printf("\tInside 'open' function\n");
+}
+
+void close_cmd(void)
+{
+  printf("\tInside 'close' function\n");
 }
 
 void close_all_cmd(void)
 {
-  printf("Inside 'close all' function\n");
+  printf("\tInside 'close all' function\n");
 }
 
 void save_cmd(void)
 {
-  printf("Inside 'save' function\n");
+  printf("\tInside 'save' function\n");
 }
 
 void save_as_cmd(void)
 {
-  printf("Inside 'save as' function\n")
+  printf("\tInside 'save as' function\n");
 }
 
 void save_all_cmd(void)
 {
-  printf("Inside 'save all' function\n");
+  printf("\tInside 'save all' function\n");
 }
 
 void print_cmd(void)
 {
-  printf("Inside 'print' function\n");
+  printf("\tInside 'print' function\n");
 }
 
 void exit_cmd(void)
