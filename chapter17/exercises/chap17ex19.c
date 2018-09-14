@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define NUM_CMDS (int) (sizeof(file_cmd) / sizeof(file_cmd[1]))
+
 void new_cmd(void);
 void open_cmd(void);
 void close_cmd(void);
@@ -38,17 +40,30 @@ int main(void)
 
 void print_cmd_list(void)
 {
+  int i;
 
+  printf("\nList of commands:\n")
+  for (i = 0; i < NUM_CMDS; i++) {
+    printf("\t%s\n", file_cmd[i].cmd_name);
+  }
 }
 
 void get_cmd(char *cmd, int n)
 {
-
+  printf("Enter a command: ");
+  fgets(cmd, n, stdin);
+  cmd[strlen(cmd)-1] = '\0'; /* Replace '\n' with null char */
 }
 
 void parce_cmd(char *cmd)
 {
+  int i;
 
+  for (i = 0; i < NUM_CMDS; i++) {
+    if (strcmp(cmd, file_cmd[i].cmd_name) == 0) {
+      file_cmd[i].cmd_pointer();
+    }
+  }
 }
 
 void new_cmd(void)
