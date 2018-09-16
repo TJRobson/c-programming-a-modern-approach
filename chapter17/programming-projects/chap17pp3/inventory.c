@@ -22,7 +22,8 @@ void insert(void);
 void search(void);
 void update(void);
 void print(void);
-int compare_parts(const void *p, const void *q);
+// int compare_parts(const void *p, const void *q);
+void erase(void);
 
 /**********************************************************
  * main: Prompts the user to enter an operation code,     *
@@ -44,6 +45,7 @@ int compare_parts(const void *p, const void *q);
       case 's': search(); break;
       case 'u': update(); break;
       case 'p': print();  break;
+      case 'e': erase();  break;
       case 'q': return 0;
       default:  printf("Illegal code\n");
     }
@@ -188,3 +190,28 @@ void print(void)
  *        Prints an error message if the part doesn't     *
  *        exit. Then removes the part from the database.  *
  **********************************************************/
+void erase(void)
+{
+  int part_number;
+
+  printf("Enter part number: ");
+  scanf("%d", &part_number);
+
+  struct part **pp = &inventory;
+  struct part *temp;
+
+  while (*pp) {
+    if ((*pp)->number == part_number) {
+      temp = *pp;
+      *pp = (*pp)->next;
+      free(temp);
+      printf("\nPart removed.\n");
+      break;
+    }
+    pp = &(*pp)->next;
+    // *pp = (*pp)->next;
+  }
+  if (*pp == NULL && inventory != NULL) {
+    printf("\nPart not found.\n");
+  }
+}
