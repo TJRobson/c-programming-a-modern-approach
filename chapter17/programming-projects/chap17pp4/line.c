@@ -1,6 +1,7 @@
 /* line.c (Chapter 15, page 364) */
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <stdbool.h>
 #include "line.h"
 
@@ -8,27 +9,50 @@
 #define EXTRA_SPACE_ON_LEFT true
 #define EXTRA_SPACE_ON_RIGHT false
 
-char line[MAX_LINE_LEN + 1];
 int line_len = 0;
 int num_words = 0;
 bool left_or_right = EXTRA_SPACE_ON_RIGHT;
 
+struct word {
+  struct word *next;
+  char letters[];
+};
+
+struct word *line = NULL;
+
 void clear_line(void)
 {
-  line[0] = '\0';
+  struct word *temp;
+
+  while (line) {
+    temp = line;
+    line = line->next;
+    free(line);
+  }
   line_len = 0;
   num_words = 0;
 }
 
 void add_word(const char *word)
 {
+  int word_len = strlen(word);
+
+  struct word *new_word;
+  if ((new_word = malloc(sizeof(struct word) + (word_len + 1))) == NULL) {
+    printf("\nError: malloc failed\n");
+    exit(EXIT_FAILURE);
+  }
+  strcpy(new_word->letters, word);
+  new_word->next = NULL;
+
+  struct word **pp;
+  for (pp = &line; *pp != NULL; pp = &(*pp)->next) ;
+  *pp = new_word;
+
+  line_len += word_len;
   if (num_words > 0) {
-    line[line_len] = ' ';
-    line[line_len+1] = '\0';
     line_len++;
   }
-  strcat(line, word);
-  line_len += strlen(word);
   num_words++;
 }
 
@@ -39,25 +63,28 @@ int space_remaining(void)
 
 void write_line(void)
 {
-  int extra_spaces, spaces_to_insert, i, j;
+  int extra_spaces, spaces_to_insert, i;
+  struct word *p = line;
+  int letter_cnt = 0;
 
   left_or_right = !left_or_right;
-  extra_spaces = MAX_LINE_LEN - line_len;
+  extra_spaces = space_remaining();
 
-  for (i = 0; i < line_len; i++) {
-    if (line[i] != ' ') {
-      putchar(line[i]);
-    } else {
+  while (p && letter_cnt < line_len) {
+    printf("%s", p->letters);
+    if (num_words > 1) {
       spaces_to_insert = extra_spaces / (num_words - 1);
       if (left_or_right == EXTRA_SPACE_ON_LEFT && extra_spaces > 0) {
         spaces_to_insert++;
       }
-      for (j = 1; j <= spaces_to_insert + 1; j++) {
+      for (i = 1; i <= spaces_to_insert + 1; i++) {
         putchar(' ');
       }
       extra_spaces -= spaces_to_insert;
-      num_words--;
     }
+    letter_cnt += strlen(p->letters) + 1;
+    num_words--;
+    p = p->next;
   }
   putchar('\n');
 }
@@ -65,6 +92,15 @@ void write_line(void)
 void flush_line(void)
 {
   if (line_len > 0) {
-    puts(line);
+    struct word *p = line;
+    int i;
+    for (i = 0, p = line; p; i++, p = p->next) {
+      if (i > 0 && p->next != NULL); {
+        putchar(' ');
+      }
+      printf("%s", p->letters);
+    }
   }
+  printf("\n");
+  clear_line();
 }
