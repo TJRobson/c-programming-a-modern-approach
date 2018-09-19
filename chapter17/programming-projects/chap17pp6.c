@@ -83,7 +83,7 @@ void sort_and_print(char **pp, int n)
 
   int i;
   for (i = 0; i < n; i++) {
-    printf("   %s - %d", *(pp + i), i);
+    printf("  %s", *(pp + i));
   }
   printf("\n");
 }
