@@ -8,7 +8,6 @@
 
 void *my_malloc(int bytes);
 int read_line(char *str, int n);
-int compare_words(const void *p, const void *q);
 void print(char **pp, int n);
 
 int main(void)
