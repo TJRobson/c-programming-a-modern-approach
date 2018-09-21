@@ -36,8 +36,7 @@ int main(void)
       break;
     }
 
-    msg_vstring = my_malloc(sizeof(struct vstring) +
-                            2 + strlen(msg_str) + 1);
+    msg_vstring = my_malloc(sizeof(struct vstring) + strlen(msg_str));
 
     strcpy(msg_vstring->chars, msg_str);
     msg_vstring->len = strlen(msg_str);
@@ -86,17 +85,18 @@ int read_line(char *str, int n)
 
 int compare_words(const void *p, const void *q)
 {
-  return strcmp( *(char **)p, *(char **)q );
+  return strcmp( (*(struct vstring **)p)->chars,
+                 (*(struct vstring **)q)->chars );
 }
 
 void sort_and_print(struct vstring **pp, int n)
 {
-  // qsort(pp, n, sizeof(char *), compare_words);
-  printf("\nSorted Messages:");
+  qsort(pp, n, sizeof(struct vstring *), compare_words);
+  struct vstring **entry;
 
-  int i;
-  for (i = 0; i < n; i++) {
-    printf("\n%d | %s", i, (*pp + i)->chars);
+  printf("\nDay Reminder:\t");
+  for (entry = pp; entry < pp + n; entry++) {
+    printf("%s\t", (*entry)->chars);
   }
   printf("\n");
 }
