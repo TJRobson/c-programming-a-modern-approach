@@ -37,9 +37,8 @@ int main(void)
         msg_str = temp;
       }
     }
-    if (pp == msgs + num_msgs) {
-      *(msgs + num_msgs) = msg_str;
-    }
+    *(msgs + num_msgs) = msg_str;
+
 
     num_msgs++;
 
