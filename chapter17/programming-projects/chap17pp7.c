@@ -14,7 +14,6 @@ struct vstring {
 };
 
 void *my_malloc(int bytes);
-// int read_line(char str[], int n);
 
 int main(void)
 {
@@ -42,7 +41,6 @@ int main(void)
           break;
         }
         sprintf(day_str, "%2d", day);
-        // read_line(msg_str, MSG_LEN);
         fgets(msg_str, MSG_LEN, stdin);
         if (msg_str[strlen(msg_str) - 1] == '\n') {
           msg_str[strlen(msg_str) - 1] = '\0'; /* Remove new line char */
@@ -68,8 +66,8 @@ int main(void)
         num_remind++;
 
         if (num_remind == size) {
-          reminders = realloc(reminders,
-                              sizeof(struct vstring *) * (size *= 2));
+          reminders = realloc(reminders, sizeof(struct vstring *) *
+                                                      (size *= 2));
         }
     }
 
@@ -91,16 +89,3 @@ void *my_malloc(int bytes)
   }
   return p;
 }
-
-// int read_line(char *str, int n)
-// {
-//   char *p = str;
-//
-//   for (; (*p = getchar()) != '\n' && p < str + n; p++) ;
-//
-//   if (p[strlen(p)-1] == '\n') {
-//     p[strlen(p)-1] = '\0';
-//   }
-//
-//   return p - str;
-// }
