@@ -13,6 +13,9 @@ void end_insert(Item i);
 /* Removes and returns Item i from the front of the queue */
 Item dequeue(void);
 
+/* Returns but doesn't remove Item i from the front of the queue */
+Item get_first(void);
+
 /* Returns but doesn't remove Item i from the end of the queue */
 Item get_last(void);
 
