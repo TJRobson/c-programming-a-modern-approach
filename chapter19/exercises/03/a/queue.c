@@ -9,14 +9,14 @@
 PRIVATE void queue_underflow(void);
 PRIVATE void queue_overflow(void);
 
-PRIVATE Item contents[QUEUE_MAX];
+PRIVATE Item contents[MAX_QUEUE];
 PRIVATE int idx_first_item = 0;
 PRIVATE int idx_new_item = 0;
 PRIVATE int num_items = 0;
 
-PUBLC void end_insert(Item i)
+PUBLIC void end_insert(Item i)
 {
-  while (num_items < MAX_QUEUE) {
+  if (num_items < MAX_QUEUE) {
     contents[idx_new_item] = i;
     idx_new_item = ((idx_new_item + 1) == MAX_QUEUE) ? 0 : idx_new_item + 1;
     num_items++;

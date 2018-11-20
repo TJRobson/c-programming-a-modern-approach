@@ -3,7 +3,7 @@
 
 int main(void)
 {
-  int a, b, c, d;
+  int a = 0, b = 0,  c = 0, d = 0;
 
   printf("\nEnter four ints: ");
   scanf("%d %d %d %d", &a, &b, &c, &d);
