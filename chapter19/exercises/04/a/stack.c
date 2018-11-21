@@ -32,7 +32,7 @@ void destroy(Stack s)
 }
 void make_empty(Stack s)
 {
-  s->top = 0l
+  s->top = 0;
 }
 
 bool is_empty(const Stack s)
@@ -47,7 +47,7 @@ bool is_full(const Stack s)
 
 void push(Stack s, Item i)
 {
-  if (is_full()) {
+  if (is_full(s)) {
     terminate("Error is push: stack overflow.");
   }
   s->contents[s->top++] = i;
@@ -55,8 +55,8 @@ void push(Stack s, Item i)
 
 Item pop(Stack s)
 {
-  if (is_empty()) {
+  if (is_empty(s)) {
     terminate("Error is pop: stack underflow.");
   }
-  return s->conetents[--s->top];
+  return s->contents[--s->top];
 }
