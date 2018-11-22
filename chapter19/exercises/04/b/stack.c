@@ -20,11 +20,11 @@ static void terminate(const char *message)
 
 Stack create(void)
 {
-  Stack s = malloc(sizeof(struct stack_type));
-  if (s == NULL) {
+  Stack s;
+  if ((s = malloc(sizeof(struct stack_type))) == NULL) {
     terminate("Error in create: stack could not be created.");
   }
-  s->top = 0;
+  s->top = NULL;
   return s;
 }
 
@@ -52,9 +52,13 @@ bool is_full(const Stack s)
 
 void push(Stack s, Item i)
 {
-  struct node *new_node = malloc(sizeof(struct node));
-  if (new_node == NULL) {
+  if (is_full(s)) {
     terminate("Error is push: stack overflow.");
+  }
+
+  struct node *new_node;
+  if ((new_node = malloc(sizeof(struct node))) == NULL) {
+    terminate("Error in Push: failure to push item.");
   }
   new_node->data = i;
   new_node->next = s->top;
@@ -63,15 +67,16 @@ void push(Stack s, Item i)
 
 Item pop(Stack s)
 {
-  struct node *old_top;
-  Item i;
-
   if (is_empty(s)) {
     terminate("Error is pop: stack underflow.");
   }
+
+  struct node *old_top;
+
+  Item i = s->top->data;
   old_top = s->top;
-  i = old_top->data;
   s->top = old_top->next;
   free(old_top);
+
   return i;
 }

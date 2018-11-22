@@ -4,23 +4,22 @@
 
 int main(void)
 {
-  char ch;
   Item i;
 
   Stack s1 = create();
   Stack s2 = create();
 
-  printf("Enter ints to push to stack 1: ");
-  while ((ch = getchar()) != '\n') {
+  printf("\nEnter ints to push to stack 1: ");
+  do {
     scanf("%d", &i);
     push(s1, i);
-  }
+  } while (getchar() != '\n');
 
   printf("Enter ints to push to stack 2: ");
-  while ((ch = getchar()) != '\n') {
+  do {
     scanf("%d", &i);
     push(s2, i);
-  }
+  } while (getchar() != '\n');
 
   printf("Stack 1 popped: %d\n", pop(s1));
   printf("Stack 2 popped: %d\n", pop(s2));
