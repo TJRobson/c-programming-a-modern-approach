@@ -23,6 +23,8 @@ int main(void)
 
   printf("Stack 1 popped: %d\n", pop(s1));
   printf("Stack 2 popped: %d\n", pop(s2));
+  printf("Stack 1 popped: %d\n", pop(s1));
+  printf("Stack 2 popped: %d\n", pop(s2));
 
   destroy(s1);
   destroy(s2);
