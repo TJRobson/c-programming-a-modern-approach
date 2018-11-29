@@ -19,6 +19,8 @@ int main(void)
     eval_expression(s, ch);
   }
 
+  destroy(s);
+
   return 0;
 }
 
@@ -28,15 +30,20 @@ static void eval_expression(Stack s, char ch) {
   } else {
     Item op1, op2;
     switch (ch) {
-      case '+': op2 = pop(s); op1 = pop(s);
-                push(s, op1 + op2); break;
-      case '-': op2 = pop(s); op1 = pop(s);
-                push(s, op1 - op2); break;
-      case '*': op2 = pop(s); op1 = pop(s);
-                push(s, op1 * op2); break;
-      case '/': op2 = pop(s); op1 = pop(s);
-                push(s, op1 / op2); break;
-      case '=': printf("\nValue of expression: %d\n", pop(s)); break;
+      case '+': push(s, pop(s) + pop(s));
+                break;
+      case '-': op2 = pop(s);
+                op1 = pop(s);
+                push(s, op1 - op2);
+                break;
+      case '*': push(s, pop(s) * pop(s));
+                break;
+      case '/': op2 = pop(s);
+                op1 = pop(s);
+                push(s, op1 / op2);
+                break;
+      case '=': printf("\nValue of expression: %d\n", pop(s));
+                break;
       case ' ': break;
       default: printf("\nPlease enter numbers and operands.\n");
                exit(EXIT_FAILURE);
