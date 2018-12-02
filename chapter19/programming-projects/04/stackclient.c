@@ -4,6 +4,7 @@
 
 #define MAX_SENTENCE 250
 
+/*Brakes message into seperate words and pushes them onto stack s. */
 void *token_stack_push(Stack s, char *message);
 
 int main(void)
@@ -34,13 +35,7 @@ int main(void)
 
   /* Remove the '\n' newline character from message. */
   message[strcspn(message, "\n")] = '\0';
-
-  /*Brakes message into seperate words and pushes them onto stack 2. */
-  char *word = strtok_r(message, " ", &saveptr);
-  while (word != NULL) {
-    push(s2, word);
-    word = strtok_r(NULL, " ", &saveptr);
-  }
+  token_stack_push(s2, message);
 
   printf("\nLength of Stack 2: %d\n", length(s2));
   while (!is_empty(s2)) {
@@ -55,5 +50,9 @@ int main(void)
 
 void *token_stack_push(Stack s, char *message)
 {
-  
+  char *save_ptr, *token = strtok_r(message, " ", &save_ptr);
+  while (token) {
+    push(s, token);
+    token = strtok_r(NULL, " ", &save_ptr);
+  }
 }
