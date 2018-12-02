@@ -15,7 +15,6 @@ int main(void)
   Stack s1 = create();
   Stack s2 = create();
 
-
   printf("\nEnter ints to push on to stack 1: ");
   do {
     scanf("%d", &i);
@@ -28,8 +27,9 @@ int main(void)
   make_empty(s1);
   printf("Length of Stack 1: %d\n", length(s1));
   destroy(s1);
+  
 
-  char *message, *saveptr;
+  char *message;
   printf("\nEnter a sentence to push  on to stack 2: ");
   fgets(message, MAX_SENTENCE, stdin);
 
