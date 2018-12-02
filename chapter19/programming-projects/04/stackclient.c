@@ -4,9 +4,11 @@
 
 #define MAX_SENTENCE 250
 
+void *token_stack_push(Stack s, char *message);
+
 int main(void)
 {
-  char ch, *message;
+  char ch;
   int i;
 
   Stack s1 = create();
@@ -26,12 +28,18 @@ int main(void)
   printf("Length of Stack 1: %d\n", length(s1));
   destroy(s1);
 
+  char *message, *saveptr;
   printf("\nEnter a sentence to push  on to stack 2: ");
   fgets(message, MAX_SENTENCE, stdin);
-  char *word = strtok(message, " ");
+
+  /* Remove the '\n' newline character from message. */
+  message[strcspn(message, "\n")] = '\0';
+
+  /*Brakes message into seperate words and pushes them onto stack 2. */
+  char *word = strtok_r(message, " ", &saveptr);
   while (word != NULL) {
     push(s2, word);
-    word = strtok(NULL, " ");
+    word = strtok_r(NULL, " ", &saveptr);
   }
 
   printf("\nLength of Stack 2: %d\n", length(s2));
@@ -42,7 +50,10 @@ int main(void)
 
   destroy(s2);
 
-
-
   return 0;
+}
+
+void *token_stack_push(Stack s, char *message)
+{
+  
 }
