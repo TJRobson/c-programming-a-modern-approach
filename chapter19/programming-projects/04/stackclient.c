@@ -5,7 +5,7 @@
 #define MAX_SENTENCE 250
 
 /*Brakes message into seperate words and pushes them onto stack s. */
-void *token_stack_push(Stack s, char *message);
+void token_stack_push(Stack s, char *message);
 
 int main(void)
 {
@@ -27,7 +27,7 @@ int main(void)
   make_empty(s1);
   printf("Length of Stack 1: %d\n", length(s1));
   destroy(s1);
-  
+
 
   char *message;
   printf("\nEnter a sentence to push  on to stack 2: ");
@@ -48,7 +48,7 @@ int main(void)
   return 0;
 }
 
-void *token_stack_push(Stack s, char *message)
+void token_stack_push(Stack s, char *message)
 {
   char *save_ptr, *token = strtok_r(message, " ", &save_ptr);
   while (token) {
