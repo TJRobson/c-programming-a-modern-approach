@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "queueADT.h"
 
-#define MAX_QUEUE 100;
+#define MAX_QUEUE 100
 
 struct queue_type {
   Item contents[MAX_QUEUE];
@@ -37,7 +37,7 @@ void destroy(Queue q)
 void end_insert(Queue q, Item i)
 {
   if (is_full(q)) {
-    terminate("Error in end_insert(): queue is full.")
+    terminate("Error in end_insert(): queue is full.");
   }
   q->contents[q->tail++] = i;
   q->len++;
@@ -77,4 +77,11 @@ bool is_empty(Queue q)
 bool is_full(Queue q)
 {
   return q->len == MAX_QUEUE;
+}
+
+void empty_queue(Queue q)
+{
+  while (!is_empty(q)) {
+    dequeue(q);
+  }
 }

@@ -3,8 +3,8 @@
 
 #include <stdbool.h>
 
-typedef int Item
-typedef struct queue_type *Queue
+typedef int Item;
+typedef struct queue_type *Queue;
 
 /* Creates and returns a Queue */
 Queue create(void);
@@ -22,5 +22,7 @@ Item get_last(Queue q);
 bool is_empty(Queue q);
 /* Returns true if the Queue is full */
 bool is_full(Queue q);
+/* Removes all items from Queue q */
+void empty_queue(Queue q);
 
 #endif
