@@ -13,7 +13,7 @@
 
 int main(void)
 {
-  unsigned short i = 232; /* binary: 11101000 */
+  unsigned short i = 248; /* binary: 11101000 */
 
   printf("\ni: %d\n", i);
 
