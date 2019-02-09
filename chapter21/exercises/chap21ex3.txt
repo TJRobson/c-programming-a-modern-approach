@@ -1,0 +1,8 @@
+Chapter 21 Exercise 3
+
+When a macro hides a function, which comes first in the header file:
+the macro definition or the function prototype? Justify your answer.
+
+Answer: the function prototype comes first. The preprocessor to would
+        need to be aware of the function before it encounters the the
+        macro definition. 
