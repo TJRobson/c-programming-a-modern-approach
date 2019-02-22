@@ -1,0 +1,16 @@
+Chapter 22 Exercise 2
+
+Indicate which mode of string is most likely to be passed to fopen in
+each of the following situations:
+
+a) A database management system opens a file containing a records to
+   be updated: "r+b"
+
+b) A mail program opens a file of saved messages so that it can add
+   additional messages to the end: "a"
+
+c) A graphics program opens a file containing a picture to be displayed
+   on the screen: "rb"
+
+d) An operating system command interpreter opens a "shell script" or
+   ("batch file") containing commands to be executed: "r"
