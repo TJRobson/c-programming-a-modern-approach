@@ -1,0 +1,12 @@
+Chapter 22 Exercise 1
+
+Indicated whether each of the following files is more likely to contain
+text data or dinary data:
+
+a) A file of object code produced by a C compiler: Binary
+
+b) A program listing produced by a C compiler: Text
+
+c) An email message sent from one computer to another: Text
+
+d) A file containing a graphic image: Binary 
